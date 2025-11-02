@@ -1,8 +1,11 @@
-import React from 'react'
+
+import BookingDetails from '../components/BookingDetails'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+    <BookingDetails/>
+    </>
   )
 }
 

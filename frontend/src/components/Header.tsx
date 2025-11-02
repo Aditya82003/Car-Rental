@@ -57,7 +57,7 @@ const Header: React.FC = () => {
   return (
     <>
       {/* Header Section */}
-      <header className="w-full bg-gray-100 px-6 md:px-12 py-3 flex items-center justify-between fixed top-0 left-0 z-40 shadow-sm">
+      <header className="w-full  px-6 md:px-12 py-3 flex items-center justify-between fixed top-0 left-0 z-40 ">
         {/* Left: Logo */}
         <div className="flex items-center gap-3">
           <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* Middle: Nav — hidden below 800px */}
-        <nav className="hidden md:flex items-center bg-blue-500 rounded-full px-3 py-1 gap-1 overflow-x-auto">
+        <nav className="hidden md:flex items-center bg-gradient-to-r from-[hsl(228,91%,47%)] to-[hsl(228,50%,40%)] rounded-full px-3 py-1 gap-1 overflow-x-auto">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -112,7 +112,7 @@ const Header: React.FC = () => {
       </header>
 
       {/*  floating navbar only for small screen*/}
-      <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-500 rounded-full px-3 py-1 flex items-center gap-1 shadow-lg z-50">
+      <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[hsl(228,91%,47%)] to-[hsl(228,50%,40%)] rounded-full px-3 py-1 flex items-center gap-1 shadow-lg z-50" >
         {navLinks.map((link) => (
           <Link
             key={link.path}
