@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { HTTPSTATUS } from "../config/https.config";
+
 import { AppError, NotFoundException } from "../utilities/appError";
+import { HTTPSTATUS } from "../config/http.config";
 
 export const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
   console.log(`Error Occured on PATH ${req.path}`, error)

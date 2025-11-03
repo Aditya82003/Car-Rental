@@ -13,3 +13,116 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum RoleType {
+  ADMIN
+  CUSTOMER
+  DRIVER
+}
+
+enum RentalStatus {
+  BOOKED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+enum PaymentMethod {
+  CARD
+  CASH
+  UPI
+}
+
+enum PermissionType {
+  ADD_CAR
+  DELETE_CAR
+  EDIT_CAR
+  VIEW_ALL_CARS
+  VIEW_AVAILABLE_CARS
+  VIEW_ALL_BOOKING
+  ADD_BOOKING
+  DELETE_BOOKING
+  EDIT_BOOKING
+  MANGAGE_PAYMENT
+}
+
+model User {
+  id             String   @id @default(uuid())
+  name           String
+  email          String   @unique
+  password       String?
+  profilePicture String?
+  phone          String   @unique
+  role           RoleType @default(CUSTOMER)
+
+  rentals    Rental[]
+  drivenCars Car[]    @relation("carDriver")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Car {
+  id            String  @id @default(uuid())
+  name          String
+  brand         String
+  lincensePlate String  @unique
+  fuelType      String?
+  seats         Int?
+  meterReading  Float?
+  priceperday   Float
+  imageUrl      String?
+  available     Boolean @default(true)
+
+  driverId String?
+  driver   User?   @relation("carDriver", fields: [driverId], references: [id])
+
+  latitude  Float?
+  longitude Float?
+
+  rentals Rental[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rental {
+  id         String       @id @default(uuid())
+  userId     String
+  carId      String
+  startDate  DateTime
+  endDate    DateTime
+  totalPrice Float?
+  status     RentalStatus @default(BOOKED)
+
+  pickupLat      Float?
+  pickupLng      Float?
+  dropoffLat     Float?
+  dropoffLng     Float?
+  pickupAddress  String?
+  dropoffAddress String?
+
+  car     Car      @relation(fields: [carId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
+  payment Payment?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  rentalId      String        @unique
+  amount        Float
+  method        PaymentMethod
+  status        PaymentStatus
+  transactionId String        @unique
+  rental        Rental        @relation(fields: [rentalId], references: [id])
+
+  createdAt DateTime @default(now())
+}
