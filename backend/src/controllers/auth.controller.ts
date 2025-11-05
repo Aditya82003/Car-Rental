@@ -3,7 +3,14 @@ import { asyncHandler } from "../middleware/asyncHandler.middleware";
 import { HTTPSTATUS } from "../config/http.config";
 import { registerUserService } from "../services/auth.services";
 import passport from "passport";
+import { config } from "../config/app.config";
 
+export const googleLoginCallback = asyncHandler(async (req: Request, res: Response) => {
+    if(req.user){
+        return res.redirect(`${config.FRONTEND_ORIGIN}/hone`)
+    }
+    
+})
 export const registerUserController = asyncHandler(async (req: Request, res: Response) => {
     const body = req.body
     await registerUserService(body)
