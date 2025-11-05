@@ -10,6 +10,10 @@ import { BadRequestException } from './utilities/appError'
 import { HTTPSTATUS } from './config/http.config'
 import { errorHandler } from './middleware/errorHandler.middleware'
 import authRoute from './routes/auth.routes'
+import carRoute from './routes/car.routes'
+import passport from 'passport'
+import './config/passport.config'
+import isAuthenticated from './middleware/isAuthenticate.middleware'
 
 const app = express()
 
@@ -39,6 +43,9 @@ app.use(
     })
 )
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.get('/', asyncHandler(async (req: Request, res: Response) => {
     throw new BadRequestException("Bad request")
     res.status(HTTPSTATUS.OK).json({
@@ -47,6 +54,7 @@ app.get('/', asyncHandler(async (req: Request, res: Response) => {
 }))
 
 app.use(`${BASE_PATH}/auth`, authRoute)
+app.use(`${BASE_PATH}/car`, isAuthenticated, carRoute)
 
 app.use(errorHandler)
 

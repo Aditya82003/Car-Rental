@@ -51,20 +51,26 @@ enum PermissionType {
   MANGAGE_PAYMENT
 }
 
+enum Provider {
+  GOOGLE
+  EMAIL
+}
+
 model User {
   id             String   @id @default(uuid())
   name           String
   email          String   @unique
   password       String?
   profilePicture String?
-  phone          String   @unique
+  phone          String?
   role           RoleType @default(CUSTOMER)
 
   rentals    Rental[]
   drivenCars Car[]    @relation("carDriver")
+  AccountProvider AccountProvider[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }
 
 model Car {
@@ -125,4 +131,20 @@ model Payment {
   rental        Rental        @relation(fields: [rentalId], references: [id])
 
   createdAt DateTime @default(now())
+}
+
+model AccountProvider {
+  id String @id @default(uuid())
+
+  provider   Provider
+  providerId String   @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  refreshToken String?
+  tokenExpire  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
