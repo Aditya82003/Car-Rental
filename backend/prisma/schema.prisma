@@ -77,7 +77,7 @@ model Car {
   id            String  @id @default(uuid())
   name          String
   brand         String
-  lincensePlate String  @unique
+  licensePlate String  @unique
   fuelType      String?
   seats         Int?
   meterReading  Float?

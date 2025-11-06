@@ -7,7 +7,7 @@ import { config } from "../config/app.config";
 
 export const googleLoginCallback = asyncHandler(async (req: Request, res: Response) => {
     if(req.user){
-        return res.redirect(`${config.FRONTEND_ORIGIN}/hone`)
+        return res.redirect(`${config.FRONTEND_ORIGIN}/home`)
     }
     
 })
