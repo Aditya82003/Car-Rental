@@ -1,5 +1,5 @@
 import { Provider } from "../generated/prisma/enums"
-import prisma from "../prisma/cilent.prisma"
+import prisma from "../prisma/client.prisma"
 import bcrypt from "bcrypt"
 import { BadRequestException, NotFoundException } from "../utilities/appError"
 import { comparedPassword } from "../utilities/comparedPassword"

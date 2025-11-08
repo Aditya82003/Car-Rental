@@ -9,7 +9,7 @@ import { Provider } from '../generated/prisma/enums'
 import { loginOrCreateAccount, verifyUserService } from '../services/auth.services'
 
 import { omitPassword } from '../utilities/omitPassword'
-import prisma from '../prisma/cilent.prisma'
+import prisma from '../prisma/client.prisma'
 
 passport.use(new GoogleStrategy({
     clientID: config.GOOGLE_CLIENT_ID,
